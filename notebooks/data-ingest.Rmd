@@ -1,0 +1,8 @@
+---
+title: "SpikeStats"
+output: html_notebook
+---
+
+```{r}
+library(duckdb)
+```
