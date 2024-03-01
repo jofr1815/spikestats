@@ -5,4 +5,15 @@ output: html_notebook
 
 ```{r}
 library(duckdb)
+
+# Connect to database file
+con <- dbConnect(duckdb(), dbdir = "../data/db/CU_last7.duckdb", read_only = FALSE)
+
+# Query format:
+# dbExecute(con, "Insert Query Here")
+```
+
+```{r}
+# Import all matches into a table
+dbExecute(con, "CREATE TABLE all_matches AS SELECT * FROM '../data/matches/all_matches.csv';", )
 ```

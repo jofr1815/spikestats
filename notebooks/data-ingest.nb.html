@@ -1754,12 +1754,43 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkdWNrZGIpXG5gYGAifQ== -->
-<pre class="r"><code>library(duckdb)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkdWNrZGIpXG5cbiMgQ29ubmVjdCB0byBkYXRhYmFzZSBmaWxlXG5jb24gPC0gZGJDb25uZWN0KGR1Y2tkYigpLCBkYmRpciA9IFwiLi4vZGF0YS9kYi9DVV9sYXN0Ny5kdWNrZGJcIiwgcmVhZF9vbmx5ID0gRkFMU0UpXG5cbiMgUXVlcnkgZm9ybWF0OlxuIyBkYkV4ZWN1dGUoY29uLCBcIkluc2VydCBRdWVyeSBIZXJlXCIpXG5gYGAifQ== -->
+<pre class="r"><code>library(duckdb)
+
+# Connect to database file
+con &lt;- dbConnect(duckdb(), dbdir = &quot;../data/db/CU_last7.duckdb&quot;, read_only = FALSE)
+
+# Query format:
+# dbExecute(con, &quot;Insert Query Here&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJbXBvcnQgYWxsIG1hdGNoZXMgaW50byBhIHRhYmxlXG5kYkV4ZWN1dGUoY29uLCBcIkNSRUFURSBUQUJMRSBhbGxfbWF0Y2hlcyBBUyBTRUxFQ1QgKiBGUk9NICcuLi9kYXRhL21hdGNoZXMvYWxsX21hdGNoZXMuY3N2JztcIiwgYWxsX3ZhcmNoYXI9MSlcblxuYGBgIn0= -->
+<pre class="r"><code># Import all matches into a table
+dbExecute(con, &quot;CREATE TABLE all_matches AS SELECT * FROM &#39;../data/matches/all_matches.csv&#39;;&quot;, all_varchar=1)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IHJhcGlfZXhlY3V0ZTogRmFpbGVkIHRvIHJ1biBxdWVyeVxuRXJyb3I6IEludmFsaWQgSW5wdXQgRXJyb3I6IENvdWxkIG5vdCBjb252ZXJ0IHN0cmluZyAnU0NPVVQnIHRvIElOVDY0IGluIGNvbHVtbiBcInZpc2l0aW5nX3RlYW1faWRcIiwgYXQgbGluZSA4OTc2Ni5cblxuUGFyc2VyIG9wdGlvbnM6XG4gIGZpbGU9Li4vZGF0YS9tYXRjaGVzL2FsbF9tYXRjaGVzLmNzdlxuICBkZWxpbWl0ZXI9JywnIChhdXRvIGRldGVjdGVkKVxuICBxdW90ZT0nXCInIChhdXRvIGRldGVjdGVkKVxuICBlc2NhcGU9J1wiJyAoYXV0byBkZXRlY3RlZClcbiAgaGVhZGVyPTFcbiAgc2FtcGxlX3NpemU9MjA0ODBcbiAgaWdub3JlX2Vycm9ycz0wXG4gIGFsbF92YXJjaGFyPTAuXG5cbkNvbnNpZGVyIGVpdGhlciBpbmNyZWFzaW5nIHRoZSBzYW1wbGUgc2l6ZSAoU0FNUExFX1NJWkU9WCBbWCByb3dzXSBvciBTQU1QTEVfU0laRT0tMSBbYWxsIHJvd3NdKSwgb3Igc2tpcHBpbmcgY29sdW1uIGNvbnZlcnNpb24gKEFMTF9WQVJDSEFSPTEpXG4ifQ== -->
+<pre><code>Error: rapi_execute: Failed to run query
+Error: Invalid Input Error: Could not convert string &#39;SCOUT&#39; to INT64 in column &quot;visiting_team_id&quot;, at line 89766.
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3Bpa2VTdGF0cyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkoZHVja2RiKQpgYGA=</div>
+Parser options:
+  file=../data/matches/all_matches.csv
+  delimiter=&#39;,&#39; (auto detected)
+  quote=&#39;&quot;&#39; (auto detected)
+  escape=&#39;&quot;&#39; (auto detected)
+  header=1
+  sample_size=20480
+  ignore_errors=0
+  all_varchar=0.
+
+Consider either increasing the sample size (SAMPLE_SIZE=X [X rows] or SAMPLE_SIZE=-1 [all rows]), or skipping column conversion (ALL_VARCHAR=1)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3Bpa2VTdGF0cyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkoZHVja2RiKQoKIyBDb25uZWN0IHRvIGRhdGFiYXNlIGZpbGUKY29uIDwtIGRiQ29ubmVjdChkdWNrZGIoKSwgZGJkaXIgPSAiLi4vZGF0YS9kYi9DVV9sYXN0Ny5kdWNrZGIiLCByZWFkX29ubHkgPSBGQUxTRSkKCiMgUXVlcnkgZm9ybWF0OgojIGRiRXhlY3V0ZShjb24sICJJbnNlcnQgUXVlcnkgSGVyZSIpCmBgYAoKYGBge3J9CiMgSW1wb3J0IGFsbCBtYXRjaGVzIGludG8gYSB0YWJsZQpkYkV4ZWN1dGUoY29uLCAiQ1JFQVRFIFRBQkxFIGFsbF9tYXRjaGVzIEFTIFNFTEVDVCAqIEZST00gJy4uL2RhdGEvbWF0Y2hlcy9hbGxfbWF0Y2hlcy5jc3YnOyIsICkKYGBg</div>
 
 
 
