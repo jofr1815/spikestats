@@ -8,12 +8,17 @@ library(duckdb)
 
 # Connect to database file
 con <- dbConnect(duckdb(), dbdir = "../data/db/CU_last7.duckdb", read_only = FALSE)
-
-# Query format:
-# dbExecute(con, "Insert Query Here")
 ```
 
 ```{r}
 # Import all matches into a table
-dbExecute(con, "CREATE TABLE all_matches AS SELECT * FROM '../data/matches/all_matches.csv';", )
+all_plays_csv= read.csv("../data/matches/all_matches.csv")[,-1]
+dbWriteTable(con, "all_plays", all_plays_csv, overwrite = TRUE)
+```
+
+```{r}
+# Query to retrieve all rows matching the green, yellow, and orange cells in the EF Data Volley Grade Grid
+dbGetQuery(con, "SELECT * FROM all_plays WHERE 
+           evaluation_code == '=' OR
+           (evaluation_code == '#' AND skill IN ('Serve', 'Attack', 'Block'))")
 ```
