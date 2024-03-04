@@ -1,0 +1,32 @@
+---
+title: "Initial Regression"
+output: html_document
+date: "2024-03-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load data
+df = read.csv('../data/matches/all_matches_processed.csv')
+df$wonSet = as.factor(df$wonSet)
+head(df)
+```
+
+```{r}
+# Fit initial glm for sanity check
+glm1 = glm(wonSet ~ unforcedErrs + earnedPts, df, family="binomial")
+summary(glm1)
+```
+
+```{r}
+glm2 = glm(wonSet ~ servErr + aceErr + unHitErr + unfErr + netErr + killErr + genErr + ace + kill + stuffBlock, df, family="binomial")
+summary(glm2)
+```
+
+
+
+
+
