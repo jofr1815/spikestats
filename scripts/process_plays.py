@@ -42,10 +42,15 @@ class Set:
 
 colNames = "setname,opponent,season,wonSet,wonMatch,unforcedErrs,earnedPts,servErr,aceErr,unHitErr,unfErr,netErr,killErr,genErr,ace,kill,stuffBlock"
 
+def fixSeasonName(season):
+    if "CU" in season:
+        season = season.split(" ")[-1]
+    return season
+
 for i in range(len(df)):
     currRow = df.iloc[i]
     if currRow["match_set"] not in sets:
-        sets[currRow["match_set"]] = Set(currRow["match_set"], currRow["season"][-2:], currRow["won_set"], currRow["won_match"], currRow["opp_team_mw"])
+        sets[currRow["match_set"]] = Set(currRow["match_set"], fixSeasonName(currRow["season"]), currRow["won_set"], currRow["won_match"], currRow["opp_team_mw"])
     if currRow["evaluation_code"] == "=":
         sets[currRow["match_set"]].unforcedErrs += 1
 
