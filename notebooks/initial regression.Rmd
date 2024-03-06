@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Load data
 df = read.csv('../data/matches/all_matches_processed.csv')
 df$wonSet = as.factor(df$wonSet)
-head(df)
+head(df[,6:17])
 ```
 
 ```{r}
@@ -25,6 +25,12 @@ summary(glm1)
 glm2 = glm(wonSet ~ servErr + aceErr + unHitErr + unfErr + netErr + killErr + genErr + ace + kill + stuffBlock, df, family="binomial")
 summary(glm2)
 ```
+
+```{r}
+cor(df[,8:17])
+unique(df$aceErr)
+```
+
 
 
 

@@ -67,7 +67,7 @@ for i in range(len(df)):
                 sets[currRow["match_set"]].netErr += 1
             case "Dig":
                 sets[currRow["match_set"]].killErr += 1
-            case "FreeBall":
+            case "Freeball":
                 sets[currRow["match_set"]].genErr += 1
 
     elif currRow["evaluation_code"] == "#":
