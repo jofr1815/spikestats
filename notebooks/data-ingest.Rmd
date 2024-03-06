@@ -32,3 +32,13 @@ dbGetQuery(con, "SELECT skill,  evaluation_code, team_id_wonlost_set, won_match,
            (evaluation_code == '#' AND skill IN ('Serve', 'Attack', 'Block'))")
 ```
 
+
+```{r}
+dbGetQuery(con, "SELECT *
+           FROM all_plays 
+           WHERE evaluation_code == '=' AND
+           skill == 'Recieve'")
+dbGetQuery(con, "SELECT DISTINCT skill FROM all_plays WHERE evaluation_code == '='")
+```
+
+
