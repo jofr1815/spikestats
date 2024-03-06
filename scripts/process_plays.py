@@ -57,7 +57,7 @@ for i in range(len(df)):
         match currRow["skill"]:
             case "Serve":
                 sets[currRow["match_set"]].servErr += 1
-            case "Recieve":
+            case "Reception":
                 sets[currRow["match_set"]].aceErr += 1
             case "Set":
                 sets[currRow["match_set"]].unHitErr += 1
@@ -67,7 +67,7 @@ for i in range(len(df)):
                 sets[currRow["match_set"]].netErr += 1
             case "Dig":
                 sets[currRow["match_set"]].killErr += 1
-            case "Free Ball":
+            case "FreeBall":
                 sets[currRow["match_set"]].genErr += 1
 
     elif currRow["evaluation_code"] == "#":
