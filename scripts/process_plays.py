@@ -37,7 +37,7 @@ class Set:
     def export(self):
         return(f"\n{self.setname},{self.opponent},{self.season},{self.wonSet},{self.wonMatch},{self.unforcedErrs},{self.earnedPts},{self.serveErr},{self.setErr},{self.attackErr},{self.freeballErr},{self.ace},{self.kill},{self.stuffBlock}")
 
-colNames = "setname,opponent,season,wonSet,wonMatch,unforcedErrs,earnedPts,servErr,aceErr,unHitErr,unfErr,netErr,killErr,genErr,ace,kill,stuffBlock"
+colNames = "setname,opponent,season,wonSet,wonMatch,unforcedErrs,earnedPts,serveErr,setErr,attackErr,freeballErr,ace,kill,stuffBlock"
 
 def fixSeasonName(season):
     if "CU" in season:

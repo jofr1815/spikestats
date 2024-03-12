@@ -30,7 +30,7 @@ print(earned_conf)
 
 
 ```{r}
-glm2 = glm(wonSet ~ servErr + unHitErr + unfErr + genErr + ace + kill + stuffBlock, df, family="binomial")
+glm2 = glm(wonSet ~ serveErr + setErr + attackErr + freeballErr + ace + kill + stuffBlock, df, family="binomial")
 summary(glm2)
 ```
 
