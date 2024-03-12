@@ -35,11 +35,17 @@ summary(glm2)
 ```
 
 ```{r}
-cor(df[,8:17])
+cor(df[,8:14])
 ```
 
 
+```{r}
+glm3 = glm(wonSet ~ serveErr + setErr + attackErr + ace + kill + stuffBlock, df, family="binomial")
+summary(glm3)
+```
 
-
-
+```{r}
+glm4 = glm(wonSet ~ serveErr + attackErr + ace + kill + stuffBlock, df, family="binomial")
+summary(glm4)
+```
 
