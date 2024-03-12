@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Load data
 df = read.csv('../data/matches/all_matches_processed.csv')
 df$wonSet = as.factor(df$wonSet)
-head(df[,6:17])
+head(df)
 ```
 
 ```{r}
@@ -22,13 +22,20 @@ summary(glm1)
 ```
 
 ```{r}
-glm2 = glm(wonSet ~ servErr + aceErr + unHitErr + unfErr + netErr + killErr + genErr + ace + kill + stuffBlock, df, family="binomial")
+err_conf = -rev(confint(glm1, 'unforcedErrs', 0.95))
+earned_conf = confint(glm1, 'earnedPts', 0.95)
+print(err_conf)
+print(earned_conf)
+```
+
+
+```{r}
+glm2 = glm(wonSet ~ servErr + unHitErr + unfErr + genErr + ace + kill + stuffBlock, df, family="binomial")
 summary(glm2)
 ```
 
 ```{r}
 cor(df[,8:17])
-unique(df$aceErr)
 ```
 
 

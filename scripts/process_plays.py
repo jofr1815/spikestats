@@ -24,13 +24,10 @@ class Set:
         self.season = season
         self.wonSet = wonSet
         self.wonMatch = wonMatch
-        self.servErr = 0
-        self.aceErr = 0
-        self.unHitErr = 0
-        self.unfErr = 0
-        self.netErr = 0
-        self.killErr = 0
-        self.genErr = 0
+        self.serveErr = 0
+        self.setErr = 0
+        self.attackErr = 0
+        self.freeballErr = 0
         self.ace = 0
         self.kill = 0
         self.stuffBlock = 0
@@ -38,7 +35,7 @@ class Set:
         self.earnedPts = 0
 
     def export(self):
-        return(f"\n{self.setname},{self.opponent},{self.season},{self.wonSet},{self.wonMatch},{self.unforcedErrs},{self.earnedPts},{self.servErr},{self.aceErr},{self.unHitErr},{self.unfErr},{self.netErr},{self.killErr},{self.genErr},{self.ace},{self.kill},{self.stuffBlock}")
+        return(f"\n{self.setname},{self.opponent},{self.season},{self.wonSet},{self.wonMatch},{self.unforcedErrs},{self.earnedPts},{self.serveErr},{self.setErr},{self.attackErr},{self.freeballErr},{self.ace},{self.kill},{self.stuffBlock}")
 
 colNames = "setname,opponent,season,wonSet,wonMatch,unforcedErrs,earnedPts,servErr,aceErr,unHitErr,unfErr,netErr,killErr,genErr,ace,kill,stuffBlock"
 
@@ -52,23 +49,19 @@ for i in range(len(df)):
     if currRow["match_set"] not in sets:
         sets[currRow["match_set"]] = Set(currRow["match_set"], fixSeasonName(currRow["season"]), currRow["won_set"], currRow["won_match"], currRow["opp_team_mw"])
     if currRow["evaluation_code"] == "=":
-        sets[currRow["match_set"]].unforcedErrs += 1
-
         match currRow["skill"]:
             case "Serve":
-                sets[currRow["match_set"]].servErr += 1
-            case "Reception":
-                sets[currRow["match_set"]].aceErr += 1
+                sets[currRow["match_set"]].serveErr += 1
+                sets[currRow["match_set"]].unforcedErrs += 1
             case "Set":
-                sets[currRow["match_set"]].unHitErr += 1
+                sets[currRow["match_set"]].setErr += 1
+                sets[currRow["match_set"]].unforcedErrs += 1
             case "Attack":
-                sets[currRow["match_set"]].unfErr += 1
-            case "Block":
-                sets[currRow["match_set"]].netErr += 1
-            case "Dig":
-                sets[currRow["match_set"]].killErr += 1
+                sets[currRow["match_set"]].attackErr += 1
+                sets[currRow["match_set"]].unforcedErrs += 1
             case "Freeball":
-                sets[currRow["match_set"]].genErr += 1
+                sets[currRow["match_set"]].freeballErr += 1
+                sets[currRow["match_set"]].unforcedErrs += 1
 
     elif currRow["evaluation_code"] == "#":
         sets[currRow["match_set"]].earnedPts += 1
