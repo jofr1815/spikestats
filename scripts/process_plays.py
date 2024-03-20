@@ -79,4 +79,4 @@ with open(f"{argv[1][:-4]}_processed.csv", "w") as f:
     f.write(colNames)
     for set in sets:
         f.write(sets[set].export())
-        f.write("\n")
+    f.write("\n")
