@@ -13,6 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 df = read.csv('../data/matches/all_matches_processed.csv')
 df$wonSet = as.factor(df$wonSet)
 head(df)
+sum(df$earnedPts)
+```
+
+```{r}
+df[482,]
+# 14 additional points scored above typical (32-30 sets, rows 482, 497)
 ```
 
 ```{r}
@@ -22,11 +28,16 @@ summary(glm1)
 ```
 
 ```{r}
-err_conf = -rev(confint(glm1, 'unforcedErrs', 0.95))
-earned_conf = confint(glm1, 'earnedPts', 0.95)
+err_conf = -rev(confint(glm1, 'unforcedErrs', 0.90))
+earned_conf = confint(glm1, 'earnedPts', 0.90)
 print(err_conf)
 print(earned_conf)
 ```
+
+```{r}
+plot(glm1)
+```
+
 
 
 ```{r}
