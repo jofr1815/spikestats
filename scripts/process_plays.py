@@ -44,39 +44,41 @@ def fixSeasonName(season):
         season = season.split(" ")[-1]
     return season
 
-for i in range(len(df)):
-    currRow = df.iloc[i]
-    if currRow["match_set"] not in sets:
-        sets[currRow["match_set"]] = Set(currRow["match_set"], fixSeasonName(currRow["season"]), currRow["won_set"], currRow["won_match"], currRow["opp_team_mw"])
-    if currRow["evaluation_code"] == "=":
-        match currRow["skill"]:
-            case "Serve":
-                sets[currRow["match_set"]].serveErr += 1
-                sets[currRow["match_set"]].unforcedErrs += 1
-            case "Set":
-                sets[currRow["match_set"]].setErr += 1
-                sets[currRow["match_set"]].unforcedErrs += 1
-            case "Attack":
-                sets[currRow["match_set"]].attackErr += 1
-                sets[currRow["match_set"]].unforcedErrs += 1
-            case "Freeball":
-                sets[currRow["match_set"]].freeballErr += 1
-                sets[currRow["match_set"]].unforcedErrs += 1
+def processSet(cuPerspect = True):
+    for i in range(len(df)):
+        currRow = df.iloc[i]
+        if currRow["match_set"] not in sets:
+            sets[currRow["match_set"]] = Set(currRow["match_set"], fixSeasonName(currRow["season"]), currRow["won_set"], currRow["won_match"], currRow["opp_team_mw"])
+        if currRow["evaluation_code"] == "=":
+            match currRow["skill"]:
+                case "Serve":
+                    sets[currRow["match_set"]].serveErr += 1
+                    sets[currRow["match_set"]].unforcedErrs += 1
+                case "Set":
+                    sets[currRow["match_set"]].setErr += 1
+                    sets[currRow["match_set"]].unforcedErrs += 1
+                case "Attack":
+                    sets[currRow["match_set"]].attackErr += 1
+                    sets[currRow["match_set"]].unforcedErrs += 1
+                case "Freeball":
+                    sets[currRow["match_set"]].freeballErr += 1
+                    sets[currRow["match_set"]].unforcedErrs += 1
 
-    elif currRow["evaluation_code"] == "#":
-        sets[currRow["match_set"]].earnedPts += 1
-        match currRow["skill"]:
-            case "Serve":
-                sets[currRow["match_set"]].ace += 1
-            case "Attack":
-                sets[currRow["match_set"]].kill += 1
-            case "Block":
-                sets[currRow["match_set"]].stuffBlock += 1
+        elif currRow["evaluation_code"] == "#":
+            sets[currRow["match_set"]].earnedPts += 1
+            match currRow["skill"]:
+                case "Serve":
+                    sets[currRow["match_set"]].ace += 1
+                case "Attack":
+                    sets[currRow["match_set"]].kill += 1
+                case "Block":
+                    sets[currRow["match_set"]].stuffBlock += 1
 
-print(f"Collected {len(sets)} total sets")
+    print(f"Collected {len(sets)} total sets")
 
-with open(f"{argv[1][:-4]}_processed.csv", "w") as f:
-    f.write(colNames)
-    for set in sets:
-        f.write(sets[set].export())
-    f.write("\n")
+    if cuPerspect == True:
+        with open(f"{argv[1][:-4]}_processed.csv", "w") as f:
+            f.write(colNames)
+            for set in sets:
+                f.write(sets[set].export())
+            f.write("\n")
