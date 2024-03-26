@@ -5,16 +5,6 @@ import pandas as pd
 df = pd.read_csv(argv[1], low_memory=False)
 init_length = len(df)
 
-df = df.loc[
-    (df["team"] == "CU") &
-    ((df["evaluation_code"] == "=") |
-    ((df["evaluation_code"] == "#") & (df["skill"].isin(["Serve", "Attack", "Block"]))))
-]
-
-filtered_len = len(df)
-
-print(f"Filtered out {filtered_len} plays from a total of {init_length} ({100*filtered_len/init_length:.2f}%)")
-
 sets = dict()
 
 class Set:
@@ -44,7 +34,18 @@ def fixSeasonName(season):
         season = season.split(" ")[-1]
     return season
 
-def processSet(cuPerspect = True):
+def processSets(df, cuPerspect = True):
+
+    df = df.loc[
+    (df["team"] == "CU") &
+    ((df["evaluation_code"] == "=") |
+    ((df["evaluation_code"] == "#") & (df["skill"].isin(["Serve", "Attack", "Block"]))))
+    ]
+
+    filtered_len = len(df)
+    print(f"Filtered out {filtered_len} plays from a total of {init_length} ({100*filtered_len/init_length:.2f}%)")
+    sets = dict()
+
     for i in range(len(df)):
         currRow = df.iloc[i]
         if currRow["match_set"] not in sets:
@@ -82,3 +83,5 @@ def processSet(cuPerspect = True):
             for set in sets:
                 f.write(sets[set].export())
             f.write("\n")
+
+processSets(df, cuPerspect=True)
