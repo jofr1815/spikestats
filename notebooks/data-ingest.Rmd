@@ -34,7 +34,7 @@ dbGetQuery(con, "SELECT skill,  evaluation_code, team_id_wonlost_set, won_match,
 
 
 ```{r}
-dbGetQuery(con, "SELECT *
+dbGetQuery(con, "SELECT *5
            FROM all_plays 
            WHERE evaluation_code == '=' AND
            skill == 'Recieve'")

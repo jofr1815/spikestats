@@ -10,8 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 # Load data
-df = read.csv('https://github.com/jofr1815/spikestats/blob/main/data/matches/all_matches_processed.csv')
-#df = read.csv('../data/matches/all_matches_processed.csv')
+df = read.csv('https://media.githubusercontent.com/media/jofr1815/spikestats/main/data/matches/all_matches_processed.csv')
 df$wonSet = as.factor(df$wonSet)
 head(df)
 sum(df$earnedPts)
