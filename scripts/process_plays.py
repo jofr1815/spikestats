@@ -2,11 +2,7 @@ from sys import argv
 from glom import glom
 import pandas as pd
 import argparse
-import os
 
-
-df = pd.read_csv(argv[1], low_memory=False)
-init_length = len(df)
 
 sets = dict()
 
@@ -40,6 +36,8 @@ def fixSeasonName(season):
 
 def processSets(df, cuPerspect = True):
 
+    init_length = len(df)
+
     if cuPerspect == True:
         df = df.loc[
         (df["team"] == "CU")]
@@ -48,13 +46,13 @@ def processSets(df, cuPerspect = True):
             (df["team"]!= "CU")
         ]
 
-    filtered_len = len(df)
-    print(f"Filtered out {filtered_len} plays from a total of {init_length} ({100*filtered_len/init_length:.2f}%)")
     sets = dict()
     df = df.loc[
         (((df["evaluation_code"] == "=") & (df["skill"].isin(["Serve", "Attack", "Block"]))) |
         ((df["evaluation_code"] == "#") & (df["skill"].isin(["Serve", "Set", "Attack", "Free Ball"]))))
         ]
+    filtered_len = len(df)
+    print(f"Filtered out {filtered_len} plays from a total of {init_length} ({100*filtered_len/init_length:.2f}%)")
 
     for i in range(len(df)):
         currRow = df.iloc[i]
@@ -85,11 +83,14 @@ def processSets(df, cuPerspect = True):
     print(f"Collected {len(sets)} total sets")
 
     if cuPerspect == True:
-        with open(f"{argv[1][:-4]}_processed.csv", "w") as f:
-            f.write(colNames)
-            for set in sets:
-                f.write(sets[set].export())
-            f.write("\n")
+        f = open(f"{argv[1][:-4]}_processed.csv", "+w")
+    else:
+        f = open(f"{argv[1][:-4]}_opp.csv", "+w")
+    f.write(colNames)
+    for set in sets:
+        f.write(sets[set].export())
+    f.write("\n")
 
-if __name__ == "Main":
-
+df = pd.read_csv(argv[1], low_memory=False)
+processSets(df, True)
+processSets(df, False)
