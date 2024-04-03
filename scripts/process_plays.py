@@ -4,8 +4,6 @@ import pandas as pd
 import argparse
 
 
-sets = dict()
-
 class Set:
     def __init__(self, setname, season, wonSet, wonMatch, teamName, opponent):
         self.setname = setname
@@ -49,7 +47,7 @@ def processSets(df, cuPerspect = True):
     sets = dict()
     df = df.loc[
         (((df["evaluation_code"] == "=") & (df["skill"].isin(["Serve", "Attack", "Block"]))) |
-        ((df["evaluation_code"] == "#") & (df["skill"].isin(["Serve", "Set", "Attack", "Free Ball"]))))
+        ((df["evaluation_code"] == "#") & (df["skill"].isin(["Serve", "Set", "Attack", "Freeball"]))))
         ]
     filtered_len = len(df)
     print(f"Filtered out {filtered_len} plays from a total of {init_length} ({100*filtered_len/init_length:.2f}%)")
