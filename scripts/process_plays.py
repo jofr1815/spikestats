@@ -46,9 +46,10 @@ def processSets(df, cuPerspect = True):
 
     sets = dict()
     df = df.loc[
-        (((df["evaluation_code"] == "=") & (df["skill"].isin(["Serve", "Attack", "Block"]))) |
-        ((df["evaluation_code"] == "#") & (df["skill"].isin(["Serve", "Set", "Attack", "Freeball"]))))
+        (((df["evaluation_code"] == "=") & (df["skill"].isin(["Serve", "Set", "Attack", "Freeball"]))) |
+        ((df["evaluation_code"] == "#") & (df["skill"].isin(["Serve", "Attack", "Block"]))))
         ]
+    
     filtered_len = len(df)
     print(f"Filtered out {filtered_len} plays from a total of {init_length} ({100*filtered_len/init_length:.2f}%)")
 
