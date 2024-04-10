@@ -86,8 +86,8 @@ def processSets(df, cuPerspect = True):
     else:
         f = open(f"{argv[1][:-4]}_opp.csv", "+w")
     f.write(colNames)
-    for set in sets:
-        f.write(sets[set].export())
+    for i in sets:
+        f.write(sets[i].export())
     f.write("\n")
 
 df = pd.read_csv(argv[1], low_memory=False)
