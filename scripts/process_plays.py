@@ -32,16 +32,17 @@ def fixSeasonName(season):
         season = season.split(" ")[-1]
     return season
 
-def processSets(df, cuPerspect = True):
+def processSets(df, team = "CU"):
 
     init_length = len(df)
 
-    if cuPerspect == True:
+    if team == "opp":
         df = df.loc[
-        (df["team"] == "CU")]
+            (df["team"] != "CU")
+        ]
     else:
         df = df.loc[
-            (df["team"]!= "CU")
+            (df["team"]== team)
         ]
 
     sets = dict()
@@ -79,17 +80,15 @@ def processSets(df, cuPerspect = True):
                 case "Block":
                     sets[currRow["match_set"]].stuffBlock += 1
 
-    print(f"Collected {len(sets)} total sets")
+    print(f"Collected {len(sets)} total sets for team {team}")
 
-    if cuPerspect == True:
-        f = open(f"{argv[1][:-4]}_processed.csv", "+w")
-    else:
-        f = open(f"{argv[1][:-4]}_opp.csv", "+w")
+    f = open(f"{argv[1][:-4]}_{team}.csv", "+w")
     f.write(colNames)
     for i in sets:
         f.write(sets[i].export())
     f.write("\n")
 
 df = pd.read_csv(argv[1], low_memory=False)
-processSets(df, True)
-processSets(df, False)
+processSets(df)
+processSets(df, "opp")
+processSets(df, "Stan")
