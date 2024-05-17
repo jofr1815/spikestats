@@ -91,4 +91,3 @@ def processSets(df, team = "CU"):
 df = pd.read_csv(argv[1], low_memory=False)
 processSets(df)
 processSets(df, "opp")
-processSets(df, "Stan")
